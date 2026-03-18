@@ -46,6 +46,11 @@ services:
       - "1001:3000"
     environment:
       JWT_SECRET: cle-demo-123
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: wefund_db
     depends_on:
       postgres:
         condition: service_healthy
@@ -62,6 +67,11 @@ services:
       - "1002:3000"
     environment:
       JWT_SECRET: cle-demo-123
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: wefund_db
     depends_on:
       postgres:
         condition: service_healthy
