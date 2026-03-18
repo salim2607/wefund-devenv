@@ -40,18 +40,15 @@ services:
     build:
       context: ./wefund-projects-service
       dockerfile: Dockerfile
-    container_name: wefund-projects-api
+    container_name: wefund-projects-service-api
     restart: unless-stopped
     ports:
-      - "3000:1001"
+      - "1001:3000"
     environment:
       JWT_SECRET: cle-demo-123
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - .:/app
-      - /app/node_modules
     networks:
       - wefund
   
@@ -62,15 +59,12 @@ services:
     container_name: wefund-contributions-paiements-utilisateurs-api
     restart: unless-stopped
     ports:
-      - "3000:1002"
+      - "1002:3000"
     environment:
       JWT_SECRET: cle-demo-123
     depends_on:
       postgres:
         condition: service_healthy
-    volumes:
-      - .:/app
-      - /app/node_modules
     networks:
       - wefund
 
