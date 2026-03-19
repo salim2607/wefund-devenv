@@ -41,3 +41,42 @@ Cette commande clone la dernière version de tous les projets puis les relance.
 
 ### Configs à Faire:
 - Ajouter les variables d'environnement sur DevEnv (À voir ensemble comment faire)
+
+## Dashboard avec Metabase
+
+Metabase est maintenant intégré au `docker-compose.yaml` de l'environnement.
+
+### Démarrage
+
+```bash
+docker compose up -d metabase
+```
+
+Si la base PostgreSQL n'est pas démarrée, lance plutôt:
+
+```bash
+docker compose up -d postgres metabase
+```
+
+### Accès
+
+- Metabase: http://localhost:3001
+- PostgreSQL (source de données):
+	- Host: `postgres`
+	- Port: `5432`
+	- Database: `wefund_db`
+	- User: `postgres`
+	- Password: `password`
+
+### Requêtes SQL prêtes à l'emploi
+
+Les 6 stories sont prêtes dans:
+
+- `metabase/queries.sql`
+
+Variables à créer dans Metabase (Native query):
+
+- `from_date` (Date)
+- `to_date` (Date)
+
+Conseil: créer 6 "Questions" SQL puis un dashboard unique avec un filtre global de période mappé à `from_date` et `to_date`.
