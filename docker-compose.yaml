@@ -105,8 +105,8 @@ services:
       DATABASE_PASSWORD: password
       DATABASE_NAME: wefund_db
       KAFKA_BROKERS: redpanda:9092
-      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
-      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-sk_test_dummy}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-whsec_dummy}
       CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
     depends_on:
       postgres:
