@@ -36,6 +36,21 @@ services:
     networks:
       - wefund
   
+  redpanda:
+    image: redpandadata/redpanda:latest
+    container_name: redpanda
+    command:
+      - redpanda
+      - start
+      - --kafka-addr internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr internal://redpanda:9092,external://localhost:19092
+      - --mode dev-container
+      - --smp 1
+    ports:
+      - "19092:19092"
+    networks:
+      - wefund
+
   wefund-projects-service-api:
     build:
       context: ./wefund-projects-service
@@ -59,8 +74,8 @@ services:
   
   wefund-contributions-paiements-utilisateurs-api:
     build:
-      context: ./wefund-contributions-paiements-utilisateurs
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: wefund-contributions-paiements-utilisateurs/Dockerfile
     container_name: wefund-contributions-paiements-utilisateurs-api
     restart: unless-stopped
     ports:
@@ -72,9 +87,12 @@ services:
       DATABASE_USER: postgres
       DATABASE_PASSWORD: password
       DATABASE_NAME: wefund_db
+      KAFKA_BROKERS: redpanda:9092
     depends_on:
       postgres:
         condition: service_healthy
+      redpanda:
+        condition: service_started
     networks:
       - wefund
 
